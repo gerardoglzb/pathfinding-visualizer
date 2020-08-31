@@ -1,11 +1,11 @@
-async function doAStar(s, e, timeBreak) {
+async function doAStar(s, e, wait) {
 	calculateAllHs(end);
 	searching = true;
 	resetPath();
 	let openNodes = [];
 	let nodesOnceOpened = [];
 	let searchStatus = document.getElementById("search-status");
-	searchStatus.style.display = "inline";
+	searchStatus.innerHTML = "Searching";
 	openNodes.push(s);
 	nodesOnceOpened.push(s);
 	let foundEnding = false;
@@ -54,8 +54,8 @@ async function doAStar(s, e, timeBreak) {
 				}
 			}
 		}
-		if (timeBreak > 0) {
-			await new Promise(r => setTimeout(r, 0));
+		if (wait > 0) {
+			await new Promise(r => setTimeout(r, speed));
 		}
 	}
 	if (foundEnding) {
@@ -64,8 +64,8 @@ async function doAStar(s, e, timeBreak) {
 		while (!current.isStart) {
 			current.colorTo("blue");
 			current = current.parent;
-			if (timeBreak > 0) {
-				await new Promise(r => setTimeout(r, timeBreak));
+			if (wait > 0) {
+				await new Promise(r => setTimeout(r, speed));
 			}
 		}
 	} else {

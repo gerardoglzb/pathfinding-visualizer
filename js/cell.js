@@ -90,7 +90,7 @@ Cell.prototype.pressed = function(truePressed) {
 			start = grid[this.x][this.y];
 			start.makeStart();
 			if (displaying) {
-				doAStar(start, end, 0);
+				doAStar(start, end, false);
 			}
 			return;
 		} else if (movingEnd && !this.isStart) {
@@ -98,7 +98,7 @@ Cell.prototype.pressed = function(truePressed) {
 			end = grid[this.x][this.y];
 			end.makeEnd();
 			if (displaying) {
-				doAStar(start, end, 0);
+				doAStar(start, end, false);
 			}
 			return;
 		}

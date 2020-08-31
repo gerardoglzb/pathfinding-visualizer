@@ -1,5 +1,5 @@
 // Colors
-let emptyColor = "white";
+let emptyColor = "#F5F3BB";
 let wallColor = "black";
 let startColor = "green";
 let endColor = "red";
@@ -17,8 +17,11 @@ let searching = false;
 let movingStart = false;
 let movingEnd = false;
 let displaying = false;
+let speedRange = document.getElementById("speed-range");
+let speed = speedRange.value;
 
 function resetPath() {
+	document.getElementById("search-status").innerHTML = "Draw your map!";
 	displaying = false;
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
@@ -73,13 +76,13 @@ grid[4][4].makeStart();
 grid[15][45].makeEnd();
 
 document.getElementById("run-btn").onclick = function() {
-	doAStar(start, end, 10);
+	doAStar(start, end, true);
 }
 
 document.getElementById("clear-grid-btn").onclick = function() {
+	resetPath();
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
-			grid[i][j].reset();
 			if (grid[i][j].isWall) {
 				grid[i][j].makeEmpty();
 			}
@@ -88,3 +91,7 @@ document.getElementById("clear-grid-btn").onclick = function() {
 }
 
 document.getElementById("clear-path-btn").onclick = resetPath;
+
+speedRange.oninput = function() {
+	speed = this.value;
+}
