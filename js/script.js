@@ -93,5 +93,5 @@ document.getElementById("clear-grid-btn").onclick = function() {
 document.getElementById("clear-path-btn").onclick = resetPath;
 
 speedRange.oninput = function() {
-	speed = this.value;
+	speed = 100 - this.value;
 }
