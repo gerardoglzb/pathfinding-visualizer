@@ -99,3 +99,27 @@ body {
 	font-size: 20px;
 	line-height: 75px;
 }
+
+#algorithm-select {
+	border-radius: 5px;
+	border-width: 3px;
+	border-color: white;
+	background-color: #DC0073;
+	font-size: 15px;
+}
+
+.bottom-bar {
+	margin-top: 15px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.bottom-text {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+}
+
+#path-length {
+
+}

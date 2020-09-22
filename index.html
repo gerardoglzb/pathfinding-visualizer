@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pathfinding</title>
+	<title>Pathfinding Visualizer</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="js/cell.js"></script>
 	<script type="text/javascript" src="js/algorithms/astar.js"></script>
+	<script type="text/javascript" src="js/algorithms/dijkstra.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div class="nav-bar bar">
-		<div id="title-div" class="bar-element bar-text">Pathfinding Visualizer</div>
+		<select id="algorithm-select" class="bar-element bar-text">
+			<option value="" selected disabled hidden>Choose an algorithm</option>
+			<option value="astar">A* algorithm</option>
+			<option value="dijkstra">Dijkstra's algorithm</option>
+		</select>
 		<div class="bar-element">
 			<button id="run-btn" class="bar-btn bar-text">Run algorithm</button>
 		</div>
@@ -28,6 +33,10 @@
 		<div id="search-status">Draw your map!</div>
 	</div>
 	<div class="canvas" id="canvas"></div>
+	<div class="bottom-bar bottom-text">
+		<div id="path-length"></div>
+		<div id="nodes-explored"></div>
+	</div>
 </body>
 <footer>
 	<script type="text/javascript" src="js/script.js"></script>

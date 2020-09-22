@@ -8,7 +8,8 @@ let openColor = "yellow";
 
 let columns = 50;
 let rows = 20;
-let grid = new Array(columns);
+let nodesCount = columns * rows;
+let grid = new Array(rows);
 let brush = 1; // what the mouse does on each cell of the grid, 1 sets start, 2 makes walls, 3 sets end
 let start;
 let end;
@@ -18,10 +19,14 @@ let movingStart = false;
 let movingEnd = false;
 let displaying = false;
 let speedRange = document.getElementById("speed-range");
+let algorithmSelect = document.getElementById("algorithm-select");
 let speed = speedRange.value;
+let searchStatus = document.getElementById("search-status");
+let pathLength = document.getElementById("path-length");
+let nodesExplored = document.getElementById("nodes-explored");
 
 function resetPath() {
-	document.getElementById("search-status").innerHTML = "Draw your map!";
+	searchStatus.innerHTML = "Draw your map!";
 	displaying = false;
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
@@ -75,9 +80,22 @@ end = grid[15][45];
 grid[4][4].makeStart();
 grid[15][45].makeEnd();
 
-document.getElementById("run-btn").onclick = function() {
-	doAStar(start, end, true);
+function runAlgorithm(s, e, w) {
+	switch(algorithmSelect.value) {
+		case 'astar':
+			doAStar(s, e, w);
+			break;
+		case 'dijkstra':
+			doDijkstra(s, e, w);
+			break;
+		default:
+			searchStatus.innerHTML = "Select an algorithm first.";
+	}
 }
+
+document.getElementById("run-btn").onclick = function() {
+	runAlgorithm(start, end, true);
+};
 
 document.getElementById("clear-grid-btn").onclick = function() {
 	resetPath();
@@ -88,6 +106,16 @@ document.getElementById("clear-grid-btn").onclick = function() {
 			}
 		}
 	}
+}
+
+function reportData(pf, pl, ne) {
+	searchStatus.innerHTML = pf;
+	if (pl == 0) {
+		pathLength.innerHTML = "There's no path length to show.";
+	} else {
+		pathLength.innerHTML = "The path is " + pl + " nodes long.";
+	}
+	nodesExplored.innerHTML = "The algorithm visited " + ne + " nodes.";
 }
 
 document.getElementById("clear-path-btn").onclick = resetPath;

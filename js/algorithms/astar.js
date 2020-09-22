@@ -4,8 +4,7 @@ async function doAStar(s, e, wait) {
 	resetPath();
 	let openNodes = [];
 	let nodesOnceOpened = [];
-	let searchStatus = document.getElementById("search-status");
-	searchStatus.innerHTML = "Searching";
+	document.getElementById("search-status").innerHTML = "Searching...";
 	openNodes.push(s);
 	nodesOnceOpened.push(s);
 	let foundEnding = false;
@@ -54,23 +53,28 @@ async function doAStar(s, e, wait) {
 				}
 			}
 		}
-		if (wait > 0) {
+		if (wait) {
 			await new Promise(r => setTimeout(r, speed));
 		}
 	}
+	let reportStatus;
+	let reportLength = 1;
 	if (foundEnding) {
-		searchStatus.innerHTML = "Path found";
+		reportStatus = "Path found.";
 		let current = e.parent;
 		while (!current.isStart) {
+			reportLength++;
 			current.colorTo("blue");
 			current = current.parent;
-			if (wait > 0) {
+			if (wait) {
 				await new Promise(r => setTimeout(r, speed));
 			}
 		}
 	} else {
-		searchStatus.innerHTML = "Path not found";
+		reportStatus = "Path not found.";
+		reportLength = 0;
 	}
+	reportData(reportStatus, reportLength, nodesOnceOpened.length);
 	searching = false;
 	displaying = true;
 }

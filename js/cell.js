@@ -9,6 +9,7 @@ function Cell(x, y) {
 	this.isStart = false;
 	this.isEnd = false;
 	this.parent = null;
+	this.smallestCost = null;
 	this.colorTo = function(color) {
 		document.getElementById("square-" + this.x + "-" + this.y).style.backgroundColor = color;
 	}
@@ -17,6 +18,7 @@ function Cell(x, y) {
 Cell.prototype.reset = function() {
 	this.hasBeenEvaluated = false;
 	this.parent = null;
+	this.smallestCost = null;
 	if (this.isStart) {
 		this.colorTo(startColor);
 	} else if (this.isEnd) {
@@ -90,7 +92,7 @@ Cell.prototype.pressed = function(truePressed) {
 			start = grid[this.x][this.y];
 			start.makeStart();
 			if (displaying) {
-				doAStar(start, end, false);
+				runAlgorithm(start, end, false);
 			}
 			return;
 		} else if (movingEnd && !this.isStart) {
@@ -98,7 +100,7 @@ Cell.prototype.pressed = function(truePressed) {
 			end = grid[this.x][this.y];
 			end.makeEnd();
 			if (displaying) {
-				doAStar(start, end, false);
+				runAlgorithm(start, end, false);
 			}
 			return;
 		}
